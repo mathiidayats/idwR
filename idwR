@@ -1,5 +1,19 @@
 library(tidyverse)
 library(gstat)
+
+# Set seed 
+set.seed(123)
+
+# dummy coordinates
+n <- 100 # jumlah titik
+x <- runif(n, min = 106, max = 109)  # Longitude
+y <- runif(n, min = -7.5, max = -5.5) # Latitude
+dates <- seq(as.Date("2024-01-01"), as.Date("2024-12-31"), by = "day")
+
+# example structure : data frame 
+data <- expand.grid(x = x, y = y, Date = dates) %>%
+  mutate(Pr = runif(nrow(.), min = 0, max = 50)) # Curah hujan acak 0-50 mm
+
 # extend and spatial resolution
 grid <- expand.grid(x = seq(106.1, 109, .05), y = seq(-8, -5.8,.05)) # spatial res = 0.05
 coordinates(grid) <- c("x", "y")
